@@ -4,10 +4,13 @@ var morgan = require('morgan')
 const handlebars  = require('express-handlebars')
 const app = express()
 
+app.use(express.static(path.join(__dirname,'public')))
 app.use(morgan('combined'))
 
-app.engine('handlebars',handlebars.engine())
-app.set('view engine','handlebars')
+app.engine('hbs',handlebars.engine({
+  extname:'.hbs'
+}))
+app.set('view engine','hbs')
 app.set('views',path.join(__dirname,'resource/views'))
 
 
