@@ -1,25 +1,24 @@
-const { json } = require("express/lib/response");
 const Course = require('../model/Course')
 
 class SiteController {
-    // GET
-    index(req, res) {
-        Course.find({},function (err,course) {
-            if(!err) {
-                res.json(course);
-            }else{
-            res.status(400).json({error:'ERROR!!!'});
-            }
+    // [GET] / index
+    index(req, res, next) {
+        
+        Course.find({})
+        .then(courses => {
+            courses = courses.map(courses => courses.toObject())
+            res.render('home',{courses})
         })
+        .catch(error => next(error));
 
 
-       //res.render('home')
+        
     }
-    // Search
-    search(req, res){
+    // [GET] / Search
+    search(req, res) {
         res.render('search')
     }
-    
+
 
 }
 
