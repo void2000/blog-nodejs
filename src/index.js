@@ -24,15 +24,19 @@ app.engine('hbs',handlebars.engine({
   extname:'.hbs'
 }))
 app.set('view engine','hbs')
-app.set('views',path.join(__dirname,'resource/views'))
+app.set('views',path.join(__dirname,'resource','views'))
 
 const port = 3000
 
 const route = require('./router')
 
+//connect to db
+const db = require('./config/db')
+db.connect();
+
 //Router init
 route(app);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
